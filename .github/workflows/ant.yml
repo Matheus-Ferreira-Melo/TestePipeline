@@ -1,0 +1,47 @@
+# This workflow will build a Java project with Ant
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-ant
+
+name: Java CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Build with Ant
+      with:
+        image: matheusfmelo/java_sem_maven
+        tags: v1, latest
+        registry: registry-url.io
+        dockerfile: Dockerfile.ci
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+#Usando o Git version
+    - name: Git Version
+  # You may pin to the exact commit or the version.
+     # uses: codacy/git-version@fa06788276d7492a2af01662649696d249ecf4cb
+      uses: codacy/git-version@2.4.0
+      with:
+    # The name of the release branch
+        release-branch: main
+    # The name of the dev branch
+        dev-branch: main
+        #Usando o github.run_number
+    #- name: Build and push Docker image
+    #  run: |
+    #    docker build -t matheusfmelo/java_sem_maven:${{ github.run_number }} .
+    #    docker push matheusfmelo/java_sem_maven:${{ github.run_number }}
