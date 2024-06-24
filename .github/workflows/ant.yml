@@ -24,7 +24,7 @@ jobs:
     - name: Docker build and Push Action
       uses: mr-smithers-excellent/docker-build-push@v6.4
       with:
-        image: matheusfmelo/java_sem_maven
+        image: matheusfmelo/javaSemMaven
         #tags: 1
         registry: docker.io
         dockerfile: dockerfile
