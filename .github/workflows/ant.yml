@@ -22,6 +22,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - name: Build with Ant
+      uses: mr-smithers-excellent/docker-build-push@v6.4
       with:
         image: matheusfmelo/java_sem_maven
         tags: v1, latest
